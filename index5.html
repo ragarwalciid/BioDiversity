@@ -71,6 +71,7 @@ var svg = d3.select("body").append("svg")
   })
 .append("g")
   .attr("transform", "translate(280,50)");
+  // .attr("transform", function(d) { return "translate(" + 100 + "," + 100 + ") rotate(-45)"; })  
 
 var filterButtons = d3.selectAll(".filter-btn")
   .on("click", function(d) {
