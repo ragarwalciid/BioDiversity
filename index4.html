@@ -29,8 +29,8 @@ Shape
 <script src="d3-comparator.js"></script>
 <script>
 
-var width = 960,
-    height = 500;
+var width = 1200,
+    height = 1200;
 
 var filters = {
   color: "all",
@@ -38,9 +38,9 @@ var filters = {
 }
 
 var grid = d3.layout.grid()
-  .rows(8)
-  .cols(8)
-  .size([400, 400]);
+  .rows(14)
+  .cols(14)
+  .size([1200, 1200]);
 
 var color = d3.scale.ordinal()
   .domain(["pink", "blue"])
