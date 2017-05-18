@@ -1,0 +1,120 @@
+<!-- standard headers to identify the page on the web -->
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>This is the title of the tab</title>
+<!-- standard headers to identify the page on the web -->
+
+<!-- 
+we are pulling in the local file for the d3 library. it is inside the libs folder and is a javascript file type. 
+we are using the v4 of d3 - this is the latest developed version with all the best revisions. still, as with any versioning system (think of your iPhone and all the apps in various updated versions - sometimes we will have to do some double-checking on things that we used to be able to do in the previous version)
+- that's all noted here: https://github.com/d3/d3/blob/master/CHANGES.md
+the "min" part of the file name just means that the file has been reduced to its most compact version - this will load faster than a version with lots of white space, comments and spaces
+-->
+	<script type="text/javascript" src="libs/d3.v4.min.js"></script>
+</head>
+
+<!-- we can put css here or in a separate file. best practice is to put it in a separate file but in this case we are being lazy. -->
+<style type="text/css">
+	/*some elements of your page are always recognizable by html, like svg or body or headers*/
+	svg{ 
+		background-color: "black";
+	}
+/*	if you want to style other elements using css, you have to specifically mark them as belonging to a class (for multiple elements - lots of blueberries!) or an ID (for unique elements - just one super special spot)*/
+	.labels{
+		font: Gotham;
+		size: 10pt;
+	}
+/*as you start working on your project, you will notice that some aspects are more easily done in HTML / CSS styling and some aspects need to be done directly in d3.js.*/
+	#container{
+		width:100%;
+		height:100%;
+	}
+</style>
+<!-- any html elements and javascript action needs to happen inside the body -->
+<!-- you can / should eventually make your css and javascript files separate from this main index file -->
+<!-- reminder: 
+html provides the basic skeleton for your page
+css is the way you style your page - think fonts, positioning, sizing of elements as well as shifts between various mouse states / hovers
+javascript is the way you give your page life and computation -->
+<body>
+
+<!-- here we are putting one empty vizContainer -->
+<div id = "vizContainer"></div>
+<!-- later in our javascript, we will selected it by its unique name - #vizContainer - and add our canvas and visualisation elements to it -->
+
+<script type="text/javascript">
+// D3 code will go here
+
+// -----------PART 1: BRINGING IN THE DATA-----------
+
+
+
+// -----------PART 2: SETTING UP THE CANVAS-----------
+//we declare that we will have a special variable named svgCanvas - or whatever we want to call it, where we will attach the canvas
+var svgCanvas;
+// var width = 1500;
+// var height = 2300;
+var width = 1200;
+var height = 700;
+//ok, now we actually select the part of the html document where we would like this canvas to be attached to
+svgCanvas = d3.select("#vizContainer").append("svg") //specifically, we are appending an svg to the vizContainer - a unique div we made in the html
+		.attr("width", width) //we decide how wide the canvas is 
+		.attr("height", height); //we decide how tall the canvas is 
+//a note on semicolons: in d3.js, a semi-colon indicates that  you are done creating this element
+
+
+var data = [0,18,25,220];
+console.log(data[0]);
+var maxVal=220;
+var xScale = d3.scaleLinear()
+	.domain([0,maxVal])
+	.range([50,width-50])
+var xPositionScaling = 50;
+
+var coffeeCircs = svgCanvas.selectAll("cafe")
+	.data(data)
+	.enter()
+	.append("g")
+	.attr("transform", function(d,i){
+		console.log(i+"this is index")
+		console.log(d+"this is my data piece")
+		return "translate("+0+","+50*i+")";
+	    // return "translate(" + (xScale(i)) + ", "+(h/2)+")";
+	});
+
+coffeeCircs.selectAll("next")
+	.data(function(d){
+		// console.log(d);
+		return (d3.range(d));
+	})
+	.enter()
+	.append("rect")
+	.attr("x", function(d,i){
+		// console.log(i+"index"+d+"data");
+		console.log(xScale(d))
+		return xScale(d);
+	})
+	.attr("y", 0)
+	.attr("width",10)
+	.attr("height",10)
+	.attr("stroke","white");
+	// .attr("fill", function(d){
+	// 	if(d==0){
+	// 		return "white";
+	// 	}
+	// 	else{
+	// 		return "brown";
+	// 	}
+	
+
+
+
+// -----------PART 3: DRAWING ON THE CANVAS-----------
+
+
+
+	</script>
+</body>
+</html>
