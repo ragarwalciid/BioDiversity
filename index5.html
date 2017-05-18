@@ -55,29 +55,77 @@ var symbol = d3.svg.symbol();
 var sortBySize = d3.comparator()
   .order(d3.descending, function(d) { return d.size; });
 
-// var data = d3.range(5).map(function(d,i) { 
-//   if(i<=3){
-//       return {
-//         id: d,
-//         time: 0,
-//         type: "conifer",
-//         size: 9,
-//         color: "pink",
-//         shape: "square"
-//       }; 
-//     }
-//   if(i>3&&i<5){
-//       return {
-//         id: d,
-//         type: "flora",
-//         size: 9,
-//         color: "blue",
-//         shape: "circle"
-//       }; 
-//     }
-// });
+var data = d3.range(346).map(function(d,i) { 
+  if(i<=18{
+      return {
+        id: d,
+        time: 0,
+        nat:0,
+        type: "pteridophytes",
+        size: 9,
+        color: "pink",
+        shape: "square"
+      }; 
+    }
+  if(i==19){
+      return {
+        id: d,
+        time: 0,
+        nat:0,
+        type: "conifers",
+        size: 9,
+        color: "blue",
+        shape: "square"
+      }; 
+    }
+   if(i>19 && i<=239){
+      return {
+        id: d,
+        time: 0,
+        nat:0,
+        type: "dicots",
+        size: 9,
+        color: "green",
+        shape: "square"
+      };    
+    }
+    if(i>239 && i<=328){
+      return {
+        id: d,
+        time: 0,
+        nat:1,
+        type: "dicots",
+        size: 9,
+        color: "green",
+        shape: "square"
+      };    
+    }
+    if(i>328 && i<=344){
+      return {
+        id: d,
+        time: 0,
+        nat:0,
+        type: "monocots",
+        size: 9,
+        color: "black",
+        shape: "square"
+      };    
+    }
+    if(i>344 && i<=346){
+      return {
+        id: d,
+        time: 0,
+        nat:1,
+        type: "monocots",
+        size: 9,
+        color: "black",
+        shape: "square"
+      };    
+    }
 
-var data1 = d3.range(5).map(function(d,i) { 
+});
+
+var data1 = d3.range(362).map(function(d,i) { 
   if(i<=6){
       return {
         id: d,
@@ -111,17 +159,30 @@ var data1 = d3.range(5).map(function(d,i) {
         shape: "square"
       }; 
     }
-  if(i>6&&i<=125){
+  if(i>315&&i<=336){
       return {
         id: d,
         time: 1,
         nat:0
-        type: "dicots",
+        type: "monocots",
         size: 9,
-        color: "green",
+        color: "black",
         shape: "square"
       }; 
     }
+
+  if(i>336&&i<=362){
+      return {
+        id: d,
+        time: 1,
+        nat:1
+        type: "monocots",
+        size: 9,
+        color: "black",
+        shape: "square"
+      }; 
+    }
+
 });
 
 
