@@ -235,11 +235,14 @@ function update() {
     .style("fill", function(d) { 
       console.log(d.type); 
       if(d.type=="conifer"){
-        return "none";
-      }else{
+        return color(d.color); 
+      if(d.type=="pteridophyte"){
+        return color(d.color); 
+      if(d.type=="dicots"){
+        return color(d.color); 
+      if(d.type=="monocots"){
         return color(d.color); 
       }
-    })
     .style("stroke", function(d) { 
       console.log(d.type); 
       if(d.type=="conifer"){
