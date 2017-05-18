@@ -52,21 +52,23 @@ var size = d3.scale.linear()
 
 var symbol = d3.svg.symbol();
 
+
+
 var sortBySize = d3.comparator()
   .order(d3.descending, function(d) { return d.size; });
 
 var data = d3.range(346).map(function(d,i) { 
-  if(i<=18{
+  if(i<=18) {
       return {
         id: d,
         time: 0,
         nat:0,
-        type: "pteridophytes",
+        type: "conifers",
         size: 9,
-        color: "pink",
+        color: "blue",
         shape: "square"
-      }; 
-    }
+    };
+  }
   if(i==19){
       return {
         id: d,
@@ -140,7 +142,7 @@ var data1 = d3.range(362).map(function(d,i) {
       return {
         id: d,
         time: 1,
-        nat:0
+        nat:0,
         type: "dicots",
         size: 9,
         color: "green",
@@ -162,7 +164,7 @@ var data1 = d3.range(362).map(function(d,i) {
       return {
         id: d,
         time: 1,
-        nat:0
+        nat:0,
         type: "monocots",
         size: 9,
         color: "black",
@@ -173,7 +175,7 @@ var data1 = d3.range(362).map(function(d,i) {
       return {
         id: d,
         time: 1,
-        nat:0
+        nat:0,
         type: "monocots",
         size: 9,
         color: "black",
@@ -235,22 +237,25 @@ function update() {
     .style("fill", function(d) { 
       console.log(d.type); 
       if(d.type=="conifer"){
-        return color(d.color); 
-      if(d.type=="pteridophyte"){
-        return color(d.color); 
-      if(d.type=="dicots"){
-        return color(d.color); 
-      if(d.type=="monocots"){
-        return color(d.color); 
-      }
-    .style("stroke", function(d) { 
-      console.log(d.type); 
-      if(d.type=="conifer"){
         return color(d.color)
-      }else{
-        return "none";
       }
-    });
+      else if(d.type=="pteridophyte"){
+        return color(d.color) 
+      }
+      else if(d.type=="dicots"){
+        return color(d.color) 
+      }
+      else if(d.type=="monocots"){
+        return color(d.color) 
+      };
+    // .style("stroke", function(d) { 
+    //   console.log(d.type); 
+    //   if(d.type=="conifer"){
+    //     return color(d.color)
+    //   }else{
+    //     return "none";
+    //   }
+    // });
   
   node.transition().duration(1000).delay(function(d, i) { return i * 20; })
     .attr("d", function(d) { return symbol.type(d.shape).size(size(d.size))(); })
