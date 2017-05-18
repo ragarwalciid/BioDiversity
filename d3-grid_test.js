@@ -18,8 +18,8 @@
     function _distributeEqually(nodes) {
       var i = -1, 
           n = nodes.length,
-          _cols = cols ? cols : 10,
-          _rows = rows ? rows : 10,
+          _cols = cols ? cols : 0,
+          _rows = rows ? rows : 0,
           col, row;
 
       if (_rows && !_cols) {
@@ -31,7 +31,7 @@
 
       if (nodeSize) {
         x.domain(d3.range(_cols)).range(d3.range(0, (size[0] + padding[0]) * _cols, size[0] + padding[0]));
-        y.domain(d3.range(_rows)).range(d3.range(0, (size[1] + padding[1]) * _rows, size[1] + padding[1]));
+        y.domain(d3.range(_rows)).range(d3.range(0, (size[1] + padding[1]) * _rows, size[1] + padding[0]));
         actualSize[0] = bands ? x(_cols - 1) + size[0] : x(_cols - 1);
         actualSize[1] = bands ? y(_rows - 1) + size[1] : y(_rows - 1);
       } else if (bands) {

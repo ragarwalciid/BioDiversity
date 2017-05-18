@@ -3,7 +3,7 @@
     var cmps = [], accessors = [];
 
     var comparator = function(a, b) {
-      var i = -1, 
+      var i = 0, 
           n = cmps.length, 
           result;
       while (++i < n) {
