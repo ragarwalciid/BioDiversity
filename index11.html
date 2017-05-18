@@ -38,17 +38,15 @@ var filters = {
 }
 
 var grid = d3.layout.grid()
-  .rows(23)
-  .cols(16)
-  .size([600, 1000])
-
-var boxSize = 40;
-
-
+  .rows(24)
+  .cols(15)
+  .size([600, 1000]);
 
 var color = d3.scale.ordinal()
   .domain(["pink", "blue", "green", "black"])
   .range(["#179974", "#D1C65A","#A2E576","#8EA547"]);
+
+var boxSize = 40;
 
 var size = d3.scale.linear()
   .domain([0, 9])
@@ -66,134 +64,134 @@ var sortBySize = d3.comparator()
 //     shape: Math.random() > 0.5 ? "square" : "circle"
 //   }; 
 // });
-// var data = d3.range(345).map(function(d,i) { 
-//   if(i<=17){
-//       return {
-//         id: d,
-//         time: 0,
-//         nat:0,
-//         type: "pteridophytes",
-//         size: 20,
-//         color: "pink",
-//         shape: "square"
-//       }; 
-//     }
-//   if(i==18){
-//       return {
-//         id: d,
-//         time: 0,
-//         nat:0,
-//         type: "conifers",
-//         size: 20,
-//         color: "blue",
-//         shape: "square"
-//       }; 
-//     }
-//    if(i>18 && i<=238){
-//       return {
-//         id: d,
-//         time: 0,
-//         nat:0,
-//         type: "dicots",
-//         size: 20,
-//         color: "green",
-//         shape: "square"
-//       };    
-//     }
-//     if(i>238 && i<=327){
-//       return {
-//         id: d,
-//         time: 0,
-//         nat:1,
-//         type: "dicots",
-//         size: 20,
-//         color: "green",
-//         shape: "square"
-//       };    
-//     }
-//     if(i>327 && i<=343){
-//       return {
-//         id: d,
-//         time: 0,
-//         nat:0,
-//         type: "monocots",
-//         size: 20,
-//         color: "black",
-//         shape: "square"
-//       };    
-//     }
-//     if(i>343 && i<=345){
-//       return {
-//         id: d,
-//         time: 0,
-//         nat:1,
-//         type: "monocots",
-//         size: 20,
-//         color: "black",
-//         shape: "square"
-//       };    
-//     }
-// });
-
-var data1 = d3.range(368).map(function(d,i) { 
-  if(i<=6){
+var data = d3.range(345).map(function(d,i) { 
+  if(i<=17){
       return {
         id: d,
-        time: 1,
-        nat: 0,
-        type: "pteridophyte",
+        time: 0,
+        nat:0,
+        type: "pteridophytes",
         size: boxSize,
         color: "pink",
         shape: "square"
       }; 
     }
-  if(i>6&&i<=125){
+  if(i==18){
       return {
         id: d,
-        time: 1,
+        time: 0,
+        nat:0,
+        type: "conifers",
+        size: boxSize,
+        color: "blue",
+        shape: "square"
+      }; 
+    }
+   if(i>18 && i<=238){
+      return {
+        id: d,
+        time: 0,
         nat:0,
         type: "dicots",
         size: boxSize,
         color: "green",
         shape: "square"
-      }; 
+      };    
     }
-  if(i>125 && i<= 316){
+    if(i>238 && i<=327){
       return {
         id: d,
-        time: 1,
-        nat: 1,
+        time: 0,
+        nat:1,
         type: "dicots",
         size: boxSize,
         color: "green",
         shape: "circle"
-      }; 
+      };    
     }
-  if(i>315&&i<=336){
+    if(i>327 && i<=343){
       return {
         id: d,
-        time: 1,
+        time: 0,
         nat:0,
         type: "monocots",
         size: boxSize,
         color: "black",
         shape: "square"
-      }; 
+      };    
     }
-
-  if(i>336&&i<=368){
+    if(i>343 && i<=345){
       return {
         id: d,
-        time: 1,
+        time: 0,
         nat:1,
         type: "monocots",
         size: boxSize,
         color: "black",
         shape: "circle"
-      }; 
+      };    
     }
-
 });
+
+// var data1 = d3.range(362).map(function(d,i) { 
+//   if(i<=6){
+//       return {
+//         id: d,
+//         time: 1,
+//         nat: 0,
+//         type: "pteridophyte",
+//         size: 9,
+//         color: "pink",
+//         shape: "square"
+//       }; 
+//     }
+//   if(i>6&&i<=125){
+//       return {
+//         id: d,
+//         time: 1,
+//         nat:0,
+//         type: "dicots",
+//         size: 9,
+//         color: "green",
+//         shape: "square"
+//       }; 
+//     }
+//   if(i>125 && i<= 316){
+//       return {
+//         id: d,
+//         time: 1,
+//         nat: 1,
+//         type: "dicots",
+//         size: 9,
+//         color: "green",
+//         shape: "square"
+//       }; 
+//     }
+//   if(i>315&&i<=336){
+//       return {
+//         id: d,
+//         time: 1,
+//         nat:0,
+//         type: "monocots",
+//         size: 9,
+//         color: "black",
+//         shape: "square"
+//       }; 
+//     }
+
+//   if(i>336&&i<=362){
+//       return {
+//         id: d,
+//         time: 1,
+//         nat:1,
+//         type: "monocots",
+//         size: 9,
+//         color: "black",
+//         shape: "square"
+//       }; 
+//     }
+
+// });
 
 
 var svg = d3.select("body").append("svg")
@@ -205,27 +203,42 @@ var svg = d3.select("body").append("svg")
 update();
 
 function update() {
-
-    var nodeData1 = svg.selectAll(".node1")
-    .data(grid(data1.filter(applyFilters).sort(sortBySize)), function(d) { return d.id; });
-  nodeData1.enter().append("path")
-    .attr("class", "node1")
+  var node = svg.selectAll(".node")
+    .data(grid(data.filter(applyFilters).sort(sortBySize)), function(d) { return d.id; });
+  node.enter().append("path")
+    .attr("class", "node")
     .attr("d", function(d) { return symbol.type(d.shape).size(1e-9)(); })
-    // .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
-    .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
-    .style("fill", function(d) { return color(d.color); });
+    .attr("transform", function(d) {
+        
+          return "translate(" + d.x + "," + d.y + ")"; 
+        })
+    // .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ") rotate(-45)"; })  
+    .style("fill", function(d) { 
+      console.log(d.type); 
+        if(d.type=="pteridophytes"){
+          return color(d.color); 
+        }
+        if(d.type=="conifers"){
+          return color(d.color);
+        } 
+        if(d.type=="dicots"){
+          return color(d.color); 
+        }
+          if(d.type=="monocots"){
+          return color(d.color); 
+        };
+    })
   
-  nodeData1.transition().duration(1000).delay(function(d, i) { return i * 20; })
+  node.transition().duration(1000).delay(function(d, i) { return i * 20; })
     .attr("d", function(d) { return symbol.type(d.shape).size(size(d.size))(); })
-    // .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
-    .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
+        .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
+    // .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ") rotate(-45)"; }) 
 
-  nodeData1.exit().transition()
+  node.exit().transition()
     .attr("d", function(d) { return symbol.type(d.shape).size(1e-9)(); })
     .remove();
-  
-}
 
+}
 function applyFilters(d) {
   for (var f in filters) {
     if (filters[f] === "all") continue;
