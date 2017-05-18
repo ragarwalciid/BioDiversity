@@ -55,32 +55,11 @@ var symbol = d3.svg.symbol();
 var sortBySize = d3.comparator()
   .order(d3.descending, function(d) { return d.size; });
 
-var data = d3.range(5).map(function(d,i) { 
-  if(i<=3){
-      return {
-        id: d,
-        time: 0,
-        type: "conifer",
-        size: 9,
-        color: "pink",
-        shape: "square"
-      }; 
-    }
-  if(i>3&&i<5){
-      return {
-        id: d,
-        type: "flora",
-        size: 9,
-        color: "blue",
-        shape: "circle"
-      }; 
-    }
-});
-// var data1 = d3.range(5).map(function(d,i) { 
+// var data = d3.range(5).map(function(d,i) { 
 //   if(i<=3){
 //       return {
 //         id: d,
-//         time: 1,
+//         time: 0,
 //         type: "conifer",
 //         size: 9,
 //         color: "pink",
@@ -90,7 +69,6 @@ var data = d3.range(5).map(function(d,i) {
 //   if(i>3&&i<5){
 //       return {
 //         id: d,
-//         time: 1,
 //         type: "flora",
 //         size: 9,
 //         color: "blue",
@@ -98,6 +76,53 @@ var data = d3.range(5).map(function(d,i) {
 //       }; 
 //     }
 // });
+
+var data1 = d3.range(5).map(function(d,i) { 
+  if(i<=6){
+      return {
+        id: d,
+        time: 1,
+        nat: 0,
+        type: "pteridophyte",
+        size: 9,
+        color: "pink",
+        shape: "square"
+      }; 
+    }
+  if(i>6&&i<=125){
+      return {
+        id: d,
+        time: 1,
+        nat:0
+        type: "dicots",
+        size: 9,
+        color: "green",
+        shape: "square"
+      }; 
+    }
+  if(i>125 && i<= 316){
+      return {
+        id: d,
+        time: 1,
+        nat: 1,
+        type: "dicots",
+        size: 9,
+        color: "green",
+        shape: "square"
+      }; 
+    }
+  if(i>6&&i<=125){
+      return {
+        id: d,
+        time: 1,
+        nat:0
+        type: "dicots",
+        size: 9,
+        color: "green",
+        shape: "square"
+      }; 
+    }
+});
 
 
 var svg = d3.select("body").append("svg")
