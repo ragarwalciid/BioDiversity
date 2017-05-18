@@ -55,14 +55,50 @@ var symbol = d3.svg.symbol();
 var sortBySize = d3.comparator()
   .order(d3.descending, function(d) { return d.size; });
 
-var data = d3.range(64).map(function(d) { 
-  return {
-    id: d,
-    size: 1 + Math.floor(Math.random() * 9),
-    color: Math.random() > 0.5 ? "pink" : "blue",
-    shape: Math.random() > 0.5 ? "square" : "circle"
-  }; 
+var data = d3.range(5).map(function(d,i) { 
+  if(i<=3){
+      return {
+        id: d,
+        time: 0,
+        type: "conifer",
+        size: 9,
+        color: "pink",
+        shape: "square"
+      }; 
+    }
+  if(i>3&&i<5){
+      return {
+        id: d,
+        type: "flora",
+        size: 9,
+        color: "blue",
+        shape: "circle"
+      }; 
+    }
 });
+// var data1 = d3.range(5).map(function(d,i) { 
+//   if(i<=3){
+//       return {
+//         id: d,
+//         time: 1,
+//         type: "conifer",
+//         size: 9,
+//         color: "pink",
+//         shape: "square"
+//       }; 
+//     }
+//   if(i>3&&i<5){
+//       return {
+//         id: d,
+//         time: 1,
+//         type: "flora",
+//         size: 9,
+//         color: "blue",
+//         shape: "circle"
+//       }; 
+//     }
+// });
+
 
 var svg = d3.select("body").append("svg")
   .attr({
@@ -88,14 +124,53 @@ function update() {
   node.enter().append("path")
     .attr("class", "node")
     .attr("d", function(d) { return symbol.type(d.shape).size(1e-9)(); })
-    .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
-    .style("fill", function(d) { return color(d.color); });
+    // .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
+    .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ") rotate(-45)"; })  
+    .style("fill", function(d) { 
+      console.log(d.type); 
+      if(d.type=="conifer"){
+        return "none";
+      }else{
+        return color(d.color); 
+      }
+    })
+    .style("stroke", function(d) { 
+      console.log(d.type); 
+      if(d.type=="conifer"){
+        return color(d.color)
+      }else{
+        return "none";
+      }
+    });
+  
   node.transition().duration(1000).delay(function(d, i) { return i * 20; })
     .attr("d", function(d) { return symbol.type(d.shape).size(size(d.size))(); })
-    .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+    // .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+    .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ") rotate(-45)"; }) 
+
   node.exit().transition()
     .attr("d", function(d) { return symbol.type(d.shape).size(1e-9)(); })
     .remove();
+
+  // var nodeData1 = svg.selectAll(".node1")
+  //   .data(grid(data1.filter(applyFilters).sort(sortBySize)), function(d) { return d.id; });
+  // nodeData1.enter().append("path")
+  //   .attr("class", "node1")
+  //   .attr("d", function(d) { return symbol.type(d.shape).size(1e-9)(); })
+  //   // .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
+  //   .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ") rotate(-45)"; })  
+  //   .style("fill", function(d) { return color(d.color); });
+  
+  // nodeData1.transition().duration(1000).delay(function(d, i) { return i * 20; })
+  //   .attr("d", function(d) { return symbol.type(d.shape).size(size(d.size))(); })
+  //   // .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+  //   .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ") rotate(-45)"; }) 
+
+  // nodeData1.exit().transition()
+  //   .attr("d", function(d) { return symbol.type(d.shape).size(1e-9)(); })
+  //   .remove();
+
+
 
   filterButtons
     .classed("active", function(d) { return this.dataset.value === filters[this.dataset.filter]; });
