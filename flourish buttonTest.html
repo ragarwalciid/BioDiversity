@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+body {
+  font-family: Helvetica, sans-serif;
+  background-image: url("flourish_bgcolor2.png");
+  background-color: #FFFBF2;
+  background-size: cover;
+  background-repeat:no-repeat;
+}
+
+svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+/*.filter-btn.active {
+  font-weight: bold;
+}*/
+.top-right {
+  float:left;
+  width: 50%;
+}
+.top-left {
+  float:left;
+  width: 50%;
+}
+
+.top {
+  width: 200px;
+}
+
+</style>
+<body>
+  <div class = "top">
+    <div class = "top-left" id="dd1">1841-2014</div>
+    <div class = "top-right" id="dd2">1907-2007</div>
+  </div>
+  
+
+<!-- Color
+<a href="#" class="filter-btn" data-filter="color" data-value="all">all</a> /
+<a href="#" class="filter-btn" data-filter="color" data-value="pink">pink</a> /
+<a href="#" class="filter-btn" data-filter="color" data-value="blue">blue</a>
+<br>
+Shape
+<a href="#" class="filter-btn" data-filter="shape" data-value="all">all</a> /
+<a href="#" class="filter-btn" data-filter="shape" data-value="square">square</a> /
+<a href="#" class="filter-btn" data-filter="shape" data-value="circle">circle</a> -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="d3-grid_test.js"></script>
+<script src="d3-comparator.js"></script>
+<script>
+
+var width = $( window ).width();
+    height = $( window ).height();
+
+var filters = {
+  color: "all",
+  shape: "all"
+}
+
+var grid = d3.layout.grid()
+  .rows(24)
+  .cols(15)
+  .size([400, 700]);
+
+
+
+var color = d3.scale.ordinal()
+  .domain(["pink", "blue", "green", "black", "strokeDicot", "strokeMonocot"])
+  .range(["#D8FF6E", "#889E2B","#A2E576","#67923D","76C146", "456622"]);
+
+var boxSize = 23;
+
+var size = d3.scale.linear()
+  .domain([0, 9])
+  .range([0, 200]);
+
+var symbol = d3.svg.symbol();
+
+var sortBySize = d3.comparator()
+  .order(d3.descending, function(d) { return d.size; });
+
+
+
+
+
+
+
+var data = d3.range(345).map(function(d,i) { 
+  if(i<=17){
+      return {
+        id: d,
+        time: 0,
+        nat:0,
+        type: "pteridophytes",
+        size: boxSize,
+        color: "pink",
+        shape: "square"
+      }; 
+    }
+  if(i==18){
+      return {
+        id: d,
+        time: 0,
+        nat:0,
+        type: "conifers",
+        size: boxSize,
+        color: "blue",
+        shape: "square"
+      }; 
+    }
+   if(i>18 && i<=238){
+      return {
+        id: d,
+        time: 0,
+        nat:0,
+        type: "dicots",
+        size: boxSize,
+        color: "green",
+        shape: "square"
+      };    
+    }
+    if(i>238 && i<=327){
+      return {
+        id: d,
+        time: 0,
+        nat:1,
+        type: "dicots",
+        size: boxSize,
+        color: "green",
+        shape: "circle",
+        stroke: "strokeDicot"
+      };    
+    }
+    if(i>327 && i<=343){
+      return {
+        id: d,
+        time: 0,
+        nat:0,
+        type: "monocots",
+        size: boxSize,
+        color: "black",
+        shape: "square"
+      };    
+    }
+    if(i>343 && i<=345){
+      return {
+        id: d,
+        time: 0,
+        nat:1,
+        type: "monocots",
+        size: boxSize,
+        color: "black",
+        shape: "circle",
+        stroke: "strokeMonocot"
+      };    
+    }
+});
+
+var data1 = d3.range(368).map(function(d,i) { 
+  if(i<=6){
+      return {
+        id: d,
+        time: 1,
+        nat: 0,
+        type: "pteridophyte",
+        size: boxSize,
+        color: "pink",
+        shape: "square"
+      }; 
+    }
+  if(i>6&&i<=125){
+      return {
+        id: d,
+        time: 1,
+        nat:0,
+        type: "dicots",
+        size: boxSize,
+        color: "green",
+        shape: "square"
+      }; 
+    }
+  if(i>125 && i<= 316){
+      return {
+        id: d,
+        time: 1,
+        nat: 1,
+        type: "dicots",
+        size: boxSize,
+        color: "green",
+        shape: "circle",
+        stroke: "strokeDicot"
+      }; 
+    }
+  if(i>315&&i<=336){
+      return {
+        id: d,
+        time: 1,
+        nat:0,
+        type: "monocots",
+        size: boxSize,
+        color: "black",
+        shape: "square"
+      }; 
+    }
+
+  if(i>336&&i<=368){
+      return {
+        id: d,
+        time: 1,
+        nat:1,
+        type: "monocots",
+        size: boxSize,
+        color: "black",
+        shape: "circle",
+        stroke: "strokeMonocot"
+      }; 
+    }
+
+});
+
+
+// var svg = d3.select("body").append("svg")
+//   .attr("width",width)
+//   .attr("height",height)
+// .append("g")
+//   .attr("transform", "translate(100,50)");
+
+// update();
+var svg = d3.select("body").append("svg")
+  .attr("width",width)
+  .attr("height",height)
+.append("g")
+  .attr("transform", "translate(650,250)");
+
+  var dataToggle = false;
+  
+$(document).keydown(function(event){
+  if (event.keyCode== 37 || event.keyCode ==39) {
+  nodeShape.remove();
+  nodeShape.exit();
+if (event.keyCode == 39) {
+    console.log("right")
+    d3.select("#dd1").style("opacity",.5)
+    d3.select("#dd2").style("opacity",1)
+    update(data1);
+  }
+if (event.keyCode == 37) {
+    console.log("left")
+    d3.select("#dd1").style("opacity",1)
+    d3.select("#dd2").style("opacity",.5)
+    update(data);
+  } 
+} else {
+
+}
+}) 
+
+// d3.select("body").on("click", function(){
+//     console.log("whatsup")
+//       nodeShape.remove();
+//       nodeShape.exit();
+//       if(dataToggle){
+//         update(data1);
+//       }else{
+//         update(data);
+//       }
+//       dataToggle = !dataToggle;
+//   });
+
+update(data);
+var nodeShape;
+function update(data) {
+  var grid2 = d3.layout.grid()
+  .rows(23)
+  .cols(16)
+  .size([450, 780])
+
+  nodeShape = svg.selectAll("node1")
+    .data(grid2(data.filter(applyFilters).sort(sortBySize)), function(d) { return d.id; });
+  nodeShape.enter().append("path")
+    .attr("class", "node1")
+    // .attr("d", function(d) { return symbol.type(d.shape).size(1e-9)(); })
+    .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; })
+    .style("fill", function(d) { return color(d.color); })
+    .style("stroke", function(d) { return color(d.stroke); })
+    .style("stroke-width", function(d) { 
+      if(d.stroke){
+        return 2.5;
+      }
+      return 0;
+      
+    });
+  
+  nodeShape.transition().duration(1000)
+    .attr("d", function(d) { return symbol.type(d.shape).size(size(d.size))(); })
+    // .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+    .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; })
+
+  nodeShape.exit().transition()
+    .attr("d", function(d) { return symbol.type(d.shape).size(1e-9)(); })
+    .remove();
+  
+}
+
+function applyFilters(d) {
+  for (var f in filters) {
+    if (filters[f] === "all") continue;
+    if (filters[f] !== d[f]) return false;
+  }
+  return true;
+}
+
+</script>
